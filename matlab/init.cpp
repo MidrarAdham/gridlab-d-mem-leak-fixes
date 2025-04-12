@@ -127,6 +127,9 @@ mxArray *defaults = NULL;
 char *matlab_server = ""; // use "standalone" to engage single use servers for each run
 bool debugmode = false;
 
+// Store the object created in init for cleanup in do_kill
+static DELEGATEDTYPE *pDelegate = NULL;
+
 //#define TOSERIAL(DT) (719529.0+(double)(DT)/(double)TS_SECOND/86400.0)
 //#define FROMSERIAL(DN) ((TIMESTAMP)((DN-719529)*86400*TS_SECOND))
 #define TOSERIAL(DT) ((double)DT/(double)TS_SECOND)
@@ -222,7 +225,7 @@ EXPORT CLASS *init(CALLBACKS *fntable, MODULE *module, int argc, char *argv[])
 			if (oclass==NULL)
 				gl_error("unable to register '%s' as a class",argv[0]);
 
-			DELEGATEDTYPE *pDelegate = new DELEGATEDTYPE;
+			pDelegate = new DELEGATEDTYPE;
 			pDelegate->oclass = oclass;
 			strncpy(pDelegate->type,"matlab",sizeof(pDelegate->type));
 			pDelegate->from_string = object_from_string;
@@ -454,10 +457,24 @@ EXPORT TIMESTAMP sync_matlab(OBJECT *obj, TIMESTAMP t1, PASSCONFIG pass)
 CDECL int do_kill()
 {
 	/* if global memory needs to be released, this is a good time to do it */
+	if (pDelegate != NULL) {
+		delete pDelegate;
+		pDelegate = NULL;
+	}
+	
+	if (defaults != NULL) {
+		mxFree(defaults);
+		defaults = NULL;
+	}
+	
+	if (engine != NULL) {
+		engClose(engine);
+		engine = NULL;
+	}
+	
 	return 0;
 }
 
 EXPORT int check(){
 	return 0;
 }
-
