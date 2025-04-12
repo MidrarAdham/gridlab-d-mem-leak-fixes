@@ -880,6 +880,9 @@ int house_e::init_climate()
 
 			//Flag us -- should already be false, but be paranoid
 			proper_climate_found = false;
+			
+			// Free the FINDLIST since we're done with it
+			gl_free(climates); // Use gl_free instead of free_list
 		}
 		else //climate data was found
 		{
@@ -931,8 +934,13 @@ int house_e::init_climate()
 			if((obj->flags & OF_INIT) != OF_INIT){
 				char objname[256];
 				gl_verbose("house::init(): deferring initialization on %s", gl_name(obj, objname, 255));
+				// Free the FINDLIST before returning
+				gl_free(climates); // Use gl_free instead of free_list
 				return 0; // defer
 			}
+			
+			// Free the FINDLIST after we're done with it
+			gl_free(climates); // Use gl_free instead of free_list
 		}
 	}
 	return 1;

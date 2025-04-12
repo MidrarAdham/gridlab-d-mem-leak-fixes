@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g -shared -Wl,-soname,commercial.so -o ../lib/commercial.so CMakeFiles/commercial.dir/hvac.cpp.o CMakeFiles/commercial.dir/init.cpp.o CMakeFiles/commercial.dir/main.cpp.o CMakeFiles/commercial.dir/multizone.cpp.o CMakeFiles/commercial.dir/office.cpp.o CMakeFiles/commercial.dir/solvers.cpp.o  -Wl,-rpath,::::::::::::::::::::::: -ldl 

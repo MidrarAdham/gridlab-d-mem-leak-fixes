@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g -shared -Wl,-soname,glxengine.so -o ../../../lib/glxengine.so CMakeFiles/glxengine.dir/engine.cpp.o CMakeFiles/glxengine.dir/udpconnection.cpp.o  -Wl,-rpath,::::::::::::::::::::::: -ldl 

@@ -46,6 +46,55 @@
 #include "performance_motor.h"
 #include "sync_check.h"
 
+// Store pointers to the created objects so we can delete them later
+static powerflow_object* powerflow_obj = nullptr;
+static powerflow_library* powerflow_lib = nullptr;
+static node* node_obj = nullptr;
+static link_object* link_obj = nullptr;
+static capacitor* capacitor_obj = nullptr;
+static fuse* fuse_obj = nullptr;
+static meter* meter_obj = nullptr;
+static line* line_obj = nullptr;
+static line_spacing* line_spacing_obj = nullptr;
+static overhead_line* overhead_line_obj = nullptr;
+static underground_line* underground_line_obj = nullptr;
+static overhead_line_conductor* overhead_line_conductor_obj = nullptr;
+static underground_line_conductor* underground_line_conductor_obj = nullptr;
+static line_configuration* line_configuration_obj = nullptr;
+static transformer_configuration* transformer_configuration_obj = nullptr;
+static transformer* transformer_obj = nullptr;
+static load* load_obj = nullptr;
+static regulator_configuration* regulator_configuration_obj = nullptr;
+static regulator* regulator_obj = nullptr;
+static triplex_node* triplex_node_obj = nullptr;
+static triplex_meter* triplex_meter_obj = nullptr;
+static triplex_line* triplex_line_obj = nullptr;
+static triplex_line_configuration* triplex_line_configuration_obj = nullptr;
+static triplex_line_conductor* triplex_line_conductor_obj = nullptr;
+static switch_object* switch_obj = nullptr;
+static substation* substation_obj = nullptr;
+static pqload* pqload_obj = nullptr;
+static voltdump* voltdump_obj = nullptr;
+static series_reactor* series_reactor_obj = nullptr;
+static restoration* restoration_obj = nullptr;
+static volt_var_control* volt_var_control_obj = nullptr;
+static fault_check* fault_check_obj = nullptr;
+static motor* motor_obj = nullptr;
+static billdump* billdump_obj = nullptr;
+static power_metrics* power_metrics_obj = nullptr;
+static currdump* currdump_obj = nullptr;
+static recloser* recloser_obj = nullptr;
+static sectionalizer* sectionalizer_obj = nullptr;
+static emissions* emissions_obj = nullptr;
+static load_tracker* load_tracker_obj = nullptr;
+static triplex_load* triplex_load_obj = nullptr;
+static impedance_dump* impedance_dump_obj = nullptr;
+static vfd* vfd_obj = nullptr;
+static jsondump* jsondump_obj = nullptr;
+static series_compensator* series_compensator_obj = nullptr;
+static performance_motor* performance_motor_obj = nullptr;
+static sync_check* sync_check_obj = nullptr;
+
 EXPORT CLASS *init(CALLBACKS *fntable, MODULE *module, int argc, char *argv[])
 {
 	if (!set_callback(fntable)) {
@@ -120,53 +169,53 @@ EXPORT CLASS *init(CALLBACKS *fntable, MODULE *module, int argc, char *argv[])
 	gl_global_create("powerflow::market_price_name",PT_char1024,&market_price_name,PT_DESCRIPTION,"Market current price published variable name",NULL);
 
     // register each object class by creating the default instance
-    new powerflow_object(module);
-    new powerflow_library(module);
-    new node(module);
-    new link_object(module);
-    new capacitor(module);
-    new fuse(module);
-    new meter(module);
-    new line(module);
-    new line_spacing(module);
-    new overhead_line(module);
-    new underground_line(module);
-    new overhead_line_conductor(module);
-    new underground_line_conductor(module);
-    new line_configuration(module);
-	new transformer_configuration(module);
-	new transformer(module);
-	new load(module);
-	new regulator_configuration(module);
-	new regulator(module);
-	new triplex_node(module);
-	new triplex_meter(module);
-	new triplex_line(module);
-	new triplex_line_configuration(module);
-	new triplex_line_conductor(module);
-	new switch_object(module);
-	new substation(module);
-	new pqload(module);
-	new voltdump(module);
-	new series_reactor(module);
-	new restoration(module);
-	new volt_var_control(module);
-	new fault_check(module);
-	new motor(module);
-	new billdump(module);
-	new power_metrics(module);
-	new currdump(module);
-	new recloser(module);
-	new sectionalizer(module);
-	new emissions(module);
-	new load_tracker(module);
-	new triplex_load(module);
-	new impedance_dump(module);
-	new vfd(module);
-	new jsondump(module);
-	new series_compensator(module);
-	new performance_motor(module);
-	new sync_check(module);
+    powerflow_obj = new powerflow_object(module);
+    powerflow_lib = new powerflow_library(module);
+    node_obj = new node(module);
+    link_obj = new link_object(module);
+    capacitor_obj = new capacitor(module);
+    fuse_obj = new fuse(module);
+    meter_obj = new meter(module);
+    line_obj = new line(module);
+    line_spacing_obj = new line_spacing(module);
+    overhead_line_obj = new overhead_line(module);
+    underground_line_obj = new underground_line(module);
+    overhead_line_conductor_obj = new overhead_line_conductor(module);
+    underground_line_conductor_obj = new underground_line_conductor(module);
+    line_configuration_obj = new line_configuration(module);
+    transformer_configuration_obj = new transformer_configuration(module);
+    transformer_obj = new transformer(module);
+    load_obj = new load(module);
+    regulator_configuration_obj = new regulator_configuration(module);
+    regulator_obj = new regulator(module);
+    triplex_node_obj = new triplex_node(module);
+    triplex_meter_obj = new triplex_meter(module);
+    triplex_line_obj = new triplex_line(module);
+    triplex_line_configuration_obj = new triplex_line_configuration(module);
+    triplex_line_conductor_obj = new triplex_line_conductor(module);
+    switch_obj = new switch_object(module);
+    substation_obj = new substation(module);
+    pqload_obj = new pqload(module);
+    voltdump_obj = new voltdump(module);
+    series_reactor_obj = new series_reactor(module);
+    restoration_obj = new restoration(module);
+    volt_var_control_obj = new volt_var_control(module);
+    fault_check_obj = new fault_check(module);
+    motor_obj = new motor(module);
+    billdump_obj = new billdump(module);
+    power_metrics_obj = new power_metrics(module);
+    currdump_obj = new currdump(module);
+    recloser_obj = new recloser(module);
+    sectionalizer_obj = new sectionalizer(module);
+    emissions_obj = new emissions(module);
+    load_tracker_obj = new load_tracker(module);
+    triplex_load_obj = new triplex_load(module);
+    impedance_dump_obj = new impedance_dump(module);
+    vfd_obj = new vfd(module);
+    jsondump_obj = new jsondump(module);
+    series_compensator_obj = new series_compensator(module);
+    performance_motor_obj = new performance_motor(module);
+    sync_check_obj = new sync_check(module);
 
     /* always return the first class registered */
     return node::oclass;
@@ -602,6 +651,55 @@ EXPORT STATUS postupdate(MODULE *module, TIMESTAMP t0, unsigned int64 dt)
 CDECL int do_kill()
 {
 	/* if global memory needs to be released, this is a good time to do it */
+    // Clean up all the objects created in init
+    if (powerflow_obj) { delete powerflow_obj; powerflow_obj = nullptr; }
+    if (powerflow_lib) { delete powerflow_lib; powerflow_lib = nullptr; }
+    if (node_obj) { delete node_obj; node_obj = nullptr; }
+    if (link_obj) { delete link_obj; link_obj = nullptr; }
+    if (capacitor_obj) { delete capacitor_obj; capacitor_obj = nullptr; }
+    if (fuse_obj) { delete fuse_obj; fuse_obj = nullptr; }
+    if (meter_obj) { delete meter_obj; meter_obj = nullptr; }
+    if (line_obj) { delete line_obj; line_obj = nullptr; }
+    if (line_spacing_obj) { delete line_spacing_obj; line_spacing_obj = nullptr; }
+    if (overhead_line_obj) { delete overhead_line_obj; overhead_line_obj = nullptr; }
+    if (underground_line_obj) { delete underground_line_obj; underground_line_obj = nullptr; }
+    if (overhead_line_conductor_obj) { delete overhead_line_conductor_obj; overhead_line_conductor_obj = nullptr; }
+    if (underground_line_conductor_obj) { delete underground_line_conductor_obj; underground_line_conductor_obj = nullptr; }
+    if (line_configuration_obj) { delete line_configuration_obj; line_configuration_obj = nullptr; }
+    if (transformer_configuration_obj) { delete transformer_configuration_obj; transformer_configuration_obj = nullptr; }
+    if (transformer_obj) { delete transformer_obj; transformer_obj = nullptr; }
+    if (load_obj) { delete load_obj; load_obj = nullptr; }
+    if (regulator_configuration_obj) { delete regulator_configuration_obj; regulator_configuration_obj = nullptr; }
+    if (regulator_obj) { delete regulator_obj; regulator_obj = nullptr; }
+    if (triplex_node_obj) { delete triplex_node_obj; triplex_node_obj = nullptr; }
+    if (triplex_meter_obj) { delete triplex_meter_obj; triplex_meter_obj = nullptr; }
+    if (triplex_line_obj) { delete triplex_line_obj; triplex_line_obj = nullptr; }
+    if (triplex_line_configuration_obj) { delete triplex_line_configuration_obj; triplex_line_configuration_obj = nullptr; }
+    if (triplex_line_conductor_obj) { delete triplex_line_conductor_obj; triplex_line_conductor_obj = nullptr; }
+    if (switch_obj) { delete switch_obj; switch_obj = nullptr; }
+    if (substation_obj) { delete substation_obj; substation_obj = nullptr; }
+    if (pqload_obj) { delete pqload_obj; pqload_obj = nullptr; }
+    if (voltdump_obj) { delete voltdump_obj; voltdump_obj = nullptr; }
+    if (series_reactor_obj) { delete series_reactor_obj; series_reactor_obj = nullptr; }
+    if (restoration_obj) { delete restoration_obj; restoration_obj = nullptr; }
+    if (volt_var_control_obj) { delete volt_var_control_obj; volt_var_control_obj = nullptr; }
+    if (fault_check_obj) { delete fault_check_obj; fault_check_obj = nullptr; }
+    if (motor_obj) { delete motor_obj; motor_obj = nullptr; }
+    if (billdump_obj) { delete billdump_obj; billdump_obj = nullptr; }
+    if (power_metrics_obj) { delete power_metrics_obj; power_metrics_obj = nullptr; }
+    if (currdump_obj) { delete currdump_obj; currdump_obj = nullptr; }
+    if (recloser_obj) { delete recloser_obj; recloser_obj = nullptr; }
+    if (sectionalizer_obj) { delete sectionalizer_obj; sectionalizer_obj = nullptr; }
+    if (emissions_obj) { delete emissions_obj; emissions_obj = nullptr; }
+    if (load_tracker_obj) { delete load_tracker_obj; load_tracker_obj = nullptr; }
+    if (triplex_load_obj) { delete triplex_load_obj; triplex_load_obj = nullptr; }
+    if (impedance_dump_obj) { delete impedance_dump_obj; impedance_dump_obj = nullptr; }
+    if (vfd_obj) { delete vfd_obj; vfd_obj = nullptr; }
+    if (jsondump_obj) { delete jsondump_obj; jsondump_obj = nullptr; }
+    if (series_compensator_obj) { delete series_compensator_obj; series_compensator_obj = nullptr; }
+    if (performance_motor_obj) { delete performance_motor_obj; performance_motor_obj = nullptr; }
+    if (sync_check_obj) { delete sync_check_obj; sync_check_obj = nullptr; }
+    
 	return 0;
 }
 

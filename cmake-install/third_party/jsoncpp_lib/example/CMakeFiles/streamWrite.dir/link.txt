@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra  -g -rdynamic CMakeFiles/streamWrite.dir/streamWrite/streamWrite.cpp.o -o ../../../bin/streamWrite  ../../../lib/static/libjsoncpp.a 

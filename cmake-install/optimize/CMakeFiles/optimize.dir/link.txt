@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g -shared -Wl,-soname,optimize.so -o ../lib/optimize.so CMakeFiles/optimize.dir/init.cpp.o CMakeFiles/optimize.dir/main.cpp.o CMakeFiles/optimize.dir/simple.cpp.o  -Wl,-rpath,::::::::::::::::::::::: -ldl 

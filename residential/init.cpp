@@ -36,6 +36,26 @@
 #include "residential_enduse.h"
 #include "house_e.h"
 
+// Store pointers to the created objects so we can delete them later
+static residential_enduse* residential_enduse_obj = nullptr;
+static appliance* appliance_obj = nullptr;
+static house_e* house_e_obj = nullptr;
+static waterheater* waterheater_obj = nullptr;
+static lights* lights_obj = nullptr;
+static refrigerator* refrigerator_obj = nullptr;
+static clotheswasher* clotheswasher_obj = nullptr;
+static dishwasher* dishwasher_obj = nullptr;
+static occupantload* occupantload_obj = nullptr;
+static plugload* plugload_obj = nullptr;
+static microwave* microwave_obj = nullptr;
+static range* range_obj = nullptr;
+static freezer* freezer_obj = nullptr;
+static dryer* dryer_obj = nullptr;
+static evcharger* evcharger_obj = nullptr;
+static ZIPload* zipload_obj = nullptr;
+static thermal_storage* thermal_storage_obj = nullptr;
+static evcharger_det* evcharger_det_obj = nullptr;
+
 EXPORT CLASS *init(CALLBACKS *fntable, MODULE *module, int argc, char *argv[])
 {
 	if (set_callback(fntable)==NULL)
@@ -55,25 +75,25 @@ EXPORT CLASS *init(CALLBACKS *fntable, MODULE *module, int argc, char *argv[])
 	gl_global_create("residential::deltamode_timestep", PT_double, &deltamode_timestep_publish,PT_UNITS,"ns",PT_DESCRIPTION,"Desired minimum timestep for deltamode-related simulations",NULL);
 	gl_global_create("residential::all_residential_delta", PT_bool, &all_residential_delta,PT_DESCRIPTION,"Modeling convenient - enables all residential objects in deltamode",NULL);
 
-	new residential_enduse(module);
-	new appliance(module);
+	residential_enduse_obj = new residential_enduse(module);
+	appliance_obj = new appliance(module);
 	// obsolete as of 3.0: new house(module);
-	new house_e(module);
-	new waterheater(module);
-	new lights(module);
-	new refrigerator(module);
-	new clotheswasher(module);
-	new dishwasher(module);
-	new occupantload(module);
-	new plugload(module);
-	new microwave(module);
-	new range(module);
-	new freezer(module);
-	new dryer(module);
-	new evcharger(module);
-	new ZIPload(module);
-	new thermal_storage(module);
-	new evcharger_det(module);
+	house_e_obj = new house_e(module);
+	waterheater_obj = new waterheater(module);
+	lights_obj = new lights(module);
+	refrigerator_obj = new refrigerator(module);
+	clotheswasher_obj = new clotheswasher(module);
+	dishwasher_obj = new dishwasher(module);
+	occupantload_obj = new occupantload(module);
+	plugload_obj = new plugload(module);
+	microwave_obj = new microwave(module);
+	range_obj = new range(module);
+	freezer_obj = new freezer(module);
+	dryer_obj = new dryer(module);
+	evcharger_obj = new evcharger(module);
+	zipload_obj = new ZIPload(module);
+	thermal_storage_obj = new thermal_storage(module);
+	evcharger_det_obj = new evcharger_det(module);
 
 	/* always return the first class registered */
 	return residential_enduse::oclass;
@@ -388,6 +408,26 @@ EXPORT STATUS postupdate(MODULE *module, TIMESTAMP t0, unsigned int64 dt)
 CDECL int do_kill()
 {
 	/* if global memory needs to be released, this is a good time to do it */
+    // Clean up all the objects created in init
+    if (residential_enduse_obj) { delete residential_enduse_obj; residential_enduse_obj = nullptr; }
+    if (appliance_obj) { delete appliance_obj; appliance_obj = nullptr; }
+    if (house_e_obj) { delete house_e_obj; house_e_obj = nullptr; }
+    if (waterheater_obj) { delete waterheater_obj; waterheater_obj = nullptr; }
+    if (lights_obj) { delete lights_obj; lights_obj = nullptr; }
+    if (refrigerator_obj) { delete refrigerator_obj; refrigerator_obj = nullptr; }
+    if (clotheswasher_obj) { delete clotheswasher_obj; clotheswasher_obj = nullptr; }
+    if (dishwasher_obj) { delete dishwasher_obj; dishwasher_obj = nullptr; }
+    if (occupantload_obj) { delete occupantload_obj; occupantload_obj = nullptr; }
+    if (plugload_obj) { delete plugload_obj; plugload_obj = nullptr; }
+    if (microwave_obj) { delete microwave_obj; microwave_obj = nullptr; }
+    if (range_obj) { delete range_obj; range_obj = nullptr; }
+    if (freezer_obj) { delete freezer_obj; freezer_obj = nullptr; }
+    if (dryer_obj) { delete dryer_obj; dryer_obj = nullptr; }
+    if (evcharger_obj) { delete evcharger_obj; evcharger_obj = nullptr; }
+    if (zipload_obj) { delete zipload_obj; zipload_obj = nullptr; }
+    if (thermal_storage_obj) { delete thermal_storage_obj; thermal_storage_obj = nullptr; }
+    if (evcharger_det_obj) { delete evcharger_det_obj; evcharger_det_obj = nullptr; }
+    
 	return 0;
 }
 

@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g -shared -Wl,-soname,tape_file.so -o ../lib/tape_file.so CMakeFiles/tape_file.dir/tape_file.cpp.o  -Wl,-rpath,::::::::::::::::::::::: -ldl 

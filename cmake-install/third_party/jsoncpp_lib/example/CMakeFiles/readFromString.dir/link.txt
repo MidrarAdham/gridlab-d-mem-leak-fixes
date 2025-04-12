@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra  -g -rdynamic CMakeFiles/readFromString.dir/readFromString/readFromString.cpp.o -o ../../../bin/readFromString  ../../../lib/static/libjsoncpp.a 
