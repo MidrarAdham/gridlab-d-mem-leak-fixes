@@ -11,7 +11,10 @@
 CLASS *metrics_collector_writer::oclass = NULL;
 
 void new_metrics_collector_writer(MODULE *mod) {
-	new metrics_collector_writer(mod);
+	// The constructor registers the class with the core, so we don't need to keep the object
+	metrics_collector_writer *obj = new metrics_collector_writer(mod);
+	// The object is registered with the core and will be managed by it
+	delete obj;
 }
 
 metrics_collector_writer::metrics_collector_writer(MODULE *mod) {
@@ -1549,4 +1552,3 @@ EXPORT int isa_metrics_collector_writer(OBJECT *obj, char *classname) {
 }
 
 // EOF
-
